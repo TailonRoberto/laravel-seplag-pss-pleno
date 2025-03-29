@@ -1,0 +1,57 @@
+# Laravel padrão
+/vendor
+/node_modules
+/public/storage
+/storage/*.key
+.env
+.env.*.php
+.env.*.backup
+Homestead.json
+Homestead.yaml
+npm-debug.log
+yarn-error.log
+**/vendor/
+
+# Cache do Laravel
+bootstrap/cache/*
+!bootstrap/cache/.gitignore
+storage/app/public
+storage/debugbar
+storage/framework/cache/data
+storage/framework/sessions
+storage/framework/testing
+storage/framework/views
+storage/logs
+storage/oauth-private.key
+storage/oauth-public.key
+storage/*.log
+
+# Diretórios do IDE
+.idea/
+.vscode/
+*.sublime-project
+*.sublime-workspace
+
+# Docker
+docker-compose.override.yml
+.docker/
+
+# Sistema operacional
+.DS_Store
+Thumbs.db
+
+# Composer
+composer.lock
+
+# Logs
+*.log
+
+# Testes
+phpunit.result.cache
+
+# Banco de dados local
+*.sqlite
+
+# Arquivos personalizados
+*.bak
+*.backup
