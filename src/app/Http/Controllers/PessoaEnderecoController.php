@@ -7,7 +7,7 @@ use Illuminate\Http\Request;
 
 class PessoaEnderecoController extends Controller
 {
-    // Listar endereços vinculados a uma pessoa
+   
     public function index($pessoaId)
     {
         $pessoa = Pessoa::with('enderecos')->findOrFail($pessoaId);
@@ -15,7 +15,7 @@ class PessoaEnderecoController extends Controller
         return response()->json($pessoa->enderecos);
     }
 
-    // Vincular um endereço à pessoa
+   
     public function store(Request $request, $pessoaId)
     {
         $request->validate([
@@ -28,16 +28,14 @@ class PessoaEnderecoController extends Controller
         return response()->json(['message' => 'Endereço vinculado com sucesso']);
     }
 
-    // Atualizar dados do relacionamento pivô (se houver campos extras)
+    //-- Como nao se tem outros campos no pivô esse metodo fica aguardando para ser implementado futuramente;
     public function update(Request $request, $pessoaId, $enderecoId)
     {
-        // Aqui você pode validar e atualizar campos extras no pivô
-        // Exemplo: tipo_residencia, observações etc
-        // Se não houver campos extras, esse método pode ser ignorado
+       
         return response()->json(['message' => 'Atualização de pivô ainda não implementada']);
     }
 
-    // Remover o vínculo
+    //-- Remover o vínculo
     public function destroy($pessoaId, $enderecoId)
     {
         $pessoa = Pessoa::findOrFail($pessoaId);

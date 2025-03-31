@@ -7,7 +7,7 @@ use Illuminate\Support\Facades\Storage;
 use Illuminate\Support\Str;
 use App\Services\MinioService;
 
-class StorageTestController extends Controller
+class StorageController extends Controller
 {
     public function upload(Request $request, MinioService $minio)
     {

@@ -3,8 +3,10 @@
 namespace App\Http\Controllers;
 
 use App\Models\Pessoa;
+use App\Models\FotoPessoa;
 use Illuminate\Http\Request;
 use Illuminate\Support\Carbon;
+use App\Services\MinioService;
 
 class PessoaController extends Controller
 {
@@ -53,5 +55,26 @@ class PessoaController extends Controller
         $pessoa->delete();
 
         return response()->json(['message' => 'Pessoa deletada com sucesso']);
+    }
+
+    //-- todas as fotos assinadas de uma pessoa 
+    public function fotos($id, MinioService $minio)
+    {
+        $fotos = FotoPessoa::where('pes_id', $id)->get();
+
+        $fotos->transform(function ($foto) use ($minio) {
+            $extension = pathinfo($foto->fp_hash, PATHINFO_EXTENSION);
+            $mime = match (strtolower($extension)) {
+                'jpg', 'jpeg' => 'image/jpeg',
+                'png' => 'image/png',
+                default => 'image/jpeg'
+            };
+
+            $foto->url = $minio->generateSignedUrl($foto->fp_hash, $foto->fp_bucket, $mime);
+
+            return $foto;
+        });
+
+        return response()->json($fotos);
     }
 }

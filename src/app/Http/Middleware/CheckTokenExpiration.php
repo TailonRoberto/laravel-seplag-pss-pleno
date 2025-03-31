@@ -4,6 +4,7 @@ namespace App\Http\Middleware;
 
 use Closure;
 use Illuminate\Http\Request;
+use Symfony\Component\HttpKernel\Exception\UnauthorizedHttpException;
 
 class CheckTokenExpiration
 {
@@ -18,7 +19,8 @@ class CheckTokenExpiration
                 return $next($request);
             }
 
-            return response()->json(['message' => 'Token expirado'], 401);
+            // Lança exceção apropriada, será capturada no ApiExceptionHandler
+            throw new UnauthorizedHttpException('', 'Token expirado');
         }
 
         return $next($request);

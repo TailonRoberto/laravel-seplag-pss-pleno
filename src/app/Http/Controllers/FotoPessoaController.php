@@ -25,9 +25,27 @@ class FotoPessoaController extends Controller
         return FotoPessoa::create($data);
     }
 
-    public function show($id)
+    public function show($id, MinioService $minio)
     {
-        return FotoPessoa::with('pessoa')->findOrFail($id);
+       
+        $foto = FotoPessoa::with('pessoa')->findOrFail($id);
+    
+        $signedUrl = $minio->generateSignedUrl(
+            $foto->fp_hash,
+            $foto->fp_bucket,
+            'image/jpeg' 
+        );
+    
+        return response()->json([
+            'fp_id' => $foto->fp_id,
+            'pes_id' => $foto->pes_id,
+            'fp_data' => $foto->fp_data,
+            'fp_bucket' => $foto->fp_bucket,
+            'fp_hash' => $foto->fp_hash,
+            'url' => $signedUrl,
+            'pessoa' => $foto->pessoa,
+        ]);
+      
     }
 
     public function update(Request $request, $id)
@@ -44,12 +62,22 @@ class FotoPessoaController extends Controller
         return $foto;
     }
 
-    public function destroy($id)
+    public function destroy($id, MinioService $minio)
     {
         $foto = FotoPessoa::findOrFail($id);
+    
+        //-- deleta do (minio)
+        $deletado = $minio->deleteFile($foto->fp_hash);
+    
+        
+        if (!$deletado) {
+            return response()->json(['error' => 'Erro ao deletar a imagem no MinIO.'], 500);
+        }
+    
+        //-- base
         $foto->delete();
-
-        return response()->json(['message' => 'Foto deletada com sucesso']);
+    
+        return response()->json(['message' => 'Foto e arquivo deletados com sucesso']);
     }
 
     public function storeWithUpload(Request $request, MinioService $minio)
@@ -61,8 +89,7 @@ class FotoPessoaController extends Controller
 
         //-- Upload e geração do nome único
         $uploadResult = $minio->uploadAndGenerateSignedUrl($request->file('foto'));
-
-        // Salvar no banco
+       
         $foto = FotoPessoa::create([
             'pes_id' => $data['pes_id'],
             'fp_data' => now(),

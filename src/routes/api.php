@@ -12,7 +12,9 @@ use App\Http\Controllers\{
     CidadeController,
     EnderecoController, 
     AuthController,
-    StorageTestController
+    StorageController,
+    PessoaEnderecoController,
+    UnidadeEnderecoController
 };
 
 // -- usando o auth:sanctum para deixar o codigo mais enxuto, já que no enunciado nao é especificado o auth 
@@ -27,21 +29,21 @@ Route::middleware(['auth:sanctum', CheckTokenExpiration::class])->group(function
 
 Route::middleware(['auth:sanctum', CheckTokenExpiration::class])->group(function () {
    
-
+    Route::get('pessoas/{id}/fotos', [PessoaController::class, 'fotos']);
     Route::post('fotos-pessoa/upload', [FotoPessoaController::class, 'storeWithUpload']);
 
     //-- rotas do Min.io (upload / list)
-    Route::post('/minio/test-upload', [StorageTestController::class, 'upload']);
-    Route::get('/minio/list', [StorageTestController::class, 'list']);
+    Route::post('/minio/upload', [StorageController::class, 'upload']);
+    Route::get('/minio/list', [StorageController::class, 'list']);
 
     // -- rotas especificadas (por unidade / endereco por nome )
     Route::get('servidores-efetivos/unidade/{unid_id}', [ServidorEfetivoController::class, 'porUnidade']);
     Route::get('servidores-efetivos/endereco-funcional', [ServidorEfetivoController::class, 'enderecoFuncionalPorNome']);
 
-    // -- rotas para contempla a adição e edição da tabelas relacionas pivo
+    // -- rotas para contemplar a adição e edição da tabelas relacionas pivo
     Route::apiResource('pessoas.enderecos', PessoaEnderecoController::class)->only(['index', 'store', 'update', 'destroy']);
 
-    //-- rotas para contempla a adição e edição da tabelas relacionas pivo
+    //-- rotas para contemplar a adição e edição da tabelas relacionas pivo
     Route::apiResource('unidades.enderecos', UnidadeEnderecoController::class)->only(['index', 'store', 'update', 'destroy']);
 
 

@@ -77,6 +77,35 @@ class MinioService
         return (string) $request->getUri();
     }
     
+    // -- promove a exclusao da imagem vinculada a pessoa no minio.
+    public function deleteFile(string $filename)
+    {
+        $bucket = env('MINIO_BUCKET');
+
+        $client = new S3Client([
+            'version' => 'latest',
+            'region' => env('MINIO_REGION'),
+            'endpoint' => env('MINIO_ENDPOINT'),
+            'use_path_style_endpoint' => true,
+            'credentials' => [
+                'key' => env('MINIO_KEY'),
+                'secret' => env('MINIO_SECRET'),
+            ],
+        ]);
+
+        try {
+            $client->deleteObject([
+                'Bucket' => $bucket,
+                'Key' => $filename,
+            ]);
+            return true;
+        } catch (\Exception $e) {
+            // Aqui você pode logar ou lançar exceção dependendo do que preferir
+            \Log::error("Erro ao deletar arquivo no MinIO: " . $e->getMessage());
+            return false;
+        }
+    }
+    
     // -- metodo criado para para reconhecer imagens locais (arquivos),
     // -- promover a comunicação pelo cli para inserir imagens por seeds
     public function uploadFromPathUsingS3Client(string $path, string $originalName)

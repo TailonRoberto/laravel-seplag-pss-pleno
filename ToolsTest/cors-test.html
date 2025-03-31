@@ -1,0 +1,60 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8">
+  <title>Teste de CORS com Laravel 12</title>
+  <style>
+    body { font-family: Arial, sans-serif; padding: 20px; }
+    input, button { margin: 5px 0; width: 100%; padding: 8px; }
+    pre { background-color: #f4f4f4; padding: 10px; border: 1px solid #ccc; }
+  </style>
+</head>
+<body>
+  <h1>Teste de CORS com Laravel 12</h1>
+
+  <label for="rota">Rota da API:</label>
+  <input type="text" id="rota" placeholder="Ex: http://localhost:8000/api/unidades">
+
+  <label for="token">Token de Autenticação:</label>
+  <input type="text" id="token" placeholder="Cole aqui o token Bearer">
+
+  <button onclick="fazerRequisicao()">Fazer Requisição</button>
+
+  <pre id="resposta"></pre>
+
+  <script>
+    async function fazerRequisicao() {
+      const rota = document.getElementById('rota').value.trim();
+      const token = document.getElementById('token').value.trim();
+
+      if (!rota || !token) {
+        document.getElementById('resposta').textContent = 'Por favor, preencha a rota e o token.';
+        return;
+      }
+
+      try {
+        const response = await fetch(rota, {
+          method: 'GET',
+          headers: {
+            'Authorization': 'Bearer ' + token,
+            'Accept': 'application/json'
+          }
+        });
+
+        const statusInfo = `Status: ${response.status} ${response.statusText}\n\n`;
+
+        if (!response.ok) {
+          const errorText = await response.text();
+          throw new Error(statusInfo + errorText);
+        }
+
+        const data = await response.json();
+        document.getElementById('resposta').textContent = JSON.stringify(data, null, 2);
+      } catch (error) {
+        document.getElementById('resposta').textContent = 'Erro:\n' + error;
+        console.error('Erro na requisição:', error);
+      }
+    }
+  </script>
+</body>
+</html>

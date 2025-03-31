@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use Illuminate\Http\Request;
 use App\Models\Cidade;
 
 class CidadeController extends Controller
@@ -21,6 +22,7 @@ class CidadeController extends Controller
     {
         $data = $request->validate([
             'cid_nome' => 'required|string|max:255',
+            'cid_uf' => 'required|string|max:2',
         ]);
 
         return Cidade::create($data);
