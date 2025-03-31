@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use App\Models\ServidorEfetivo;
 use Illuminate\Http\Request;
 use Illuminate\Support\Carbon;
+use App\Services\MinioService;
 
 class ServidorEfetivoController extends Controller
 {
@@ -46,9 +47,47 @@ class ServidorEfetivoController extends Controller
         $registro->delete();
         return response()->json(['message' => 'Deletado com sucesso']);
     }
-
-    public function porUnidade($unid_id)
+    
+    // -- buscando por partes do nome do servidor
+    public function enderecoFuncionalPorNome(Request $request)
     {
+        $nome = $request->query('nome');
+        $perPage = $request->query('per_page', 10);
+
+        $servidores = ServidorEfetivo::with([
+            'pessoa.lotacoes.unidade.enderecos.cidade'
+        ])
+        ->whereHas('pessoa', function ($query) use ($nome) {
+            $query->where('pes_nome', 'ILIKE', "%{$nome}%");
+        })
+        ->paginate($perPage);
+
+        $servidores->setCollection(
+            $servidores->getCollection()->map(function ($servidor) {
+                $unidade = $servidor->pessoa->lotacoes->first()?->unidade;
+                $endereco = $unidade?->enderecos->first();
+
+                return [
+                    'servidor' => $servidor->pessoa->pes_nome,
+                    'unidade' => $unidade?->unid_nome,
+                    'endereco' => $endereco ? [
+                        'logradouro' => $endereco->end_tipo_logradouro . ' ' . $endereco->end_logradouro,
+                        'numero' => $endereco->end_numero,
+                        'bairro' => $endereco->end_bairro,
+                        'cidade' => $endereco->cidade->cid_nome ?? null,
+                    ] : null,
+                ];
+            })
+        );
+    
+        return $servidores;
+    }  
+
+    // -- listando servidores por unidade  
+    public function porUnidade($unid_id, MinioService $minio)
+    {
+        $perPage = request('per_page', 10); 
+
         $servidores = ServidorEfetivo::with([
             'pessoa.fotos',
             'pessoa.lotacoes' => function ($query) use ($unid_id) {
@@ -59,46 +98,35 @@ class ServidorEfetivoController extends Controller
         ->whereHas('pessoa.lotacoes', function ($query) use ($unid_id) {
             $query->where('unid_id', $unid_id);
         })
-        ->get();
+        ->paginate($perPage);
+        
+        $servidores->setCollection(
+            $servidores->getCollection()->map(function ($servidor) use ($minio) {
+                $pessoa = $servidor->pessoa;
+                $unidade = $pessoa->lotacoes->first()?->unidade?->unid_nome;
 
-        return $servidores->map(function ($servidor) {
-            $pessoa = $servidor->pessoa;
+                $fotos = $pessoa->fotos->map(function ($foto) use ($minio) {
+                    $url = $foto->fp_bucket && $foto->fp_hash
+                        ? $minio->generateSignedUrl($foto->fp_hash, $foto->fp_bucket)
+                        : null;
 
-            return [
-                'nome' => $pessoa->pes_nome,
-                'idade' => Carbon::parse($pessoa->pes_data_nascimento)->age,
-                'unidade' => $pessoa->lotacoes->first()?->unidade->unid_nome,
-                'foto' => $pessoa->fotos->first()?->fp_bucket ?? null,
-            ];
-        });
+                    return [
+                        'hash' => $foto->fp_hash,
+                        'data' => $foto->fp_data,
+                        'url' => $url,
+                    ];
+                });
+
+                return [
+                    'nome' => $pessoa->pes_nome,
+                    'idade' => Carbon::parse($pessoa->pes_data_nascimento)->age,
+                    'unidade' => $unidade,
+                    'fotografias' => $fotos,
+                ];
+            })
+        );
+
+        return $servidores;
     }
-    public function enderecoFuncionalPorNome(Request $request)
-    {
-        $nome = $request->query('nome');
 
-        $servidores = ServidorEfetivo::with([
-            'pessoa.lotacoes.unidade.enderecos.cidade'
-        ])
-        ->whereHas('pessoa', function ($query) use ($nome) {
-            $query->where('pes_nome', 'ILIKE', "%{$nome}%");
-        })
-        ->get();
-
-        return $servidores->map(function ($servidor) {
-            $unidade = $servidor->pessoa->lotacoes->first()?->unidade;
-
-            $endereco = $unidade?->enderecos->first();
-
-            return [
-                'servidor' => $servidor->pessoa->pes_nome,
-                'unidade' => $unidade?->unid_nome,
-                'endereco' => $endereco ? [
-                    'logradouro' => $endereco->end_tipo_logradouro . ' ' . $endereco->end_logradouro,
-                    'numero' => $endereco->end_numero,
-                    'bairro' => $endereco->end_bairro,
-                    'cidade' => $endereco->cidade->cid_nome ?? null,
-                ] : null,
-            ];
-        });
-    }
 }

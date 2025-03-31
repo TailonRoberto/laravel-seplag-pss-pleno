@@ -18,8 +18,6 @@ use App\Http\Controllers\{
 // -- usando o auth:sanctum para deixar o codigo mais enxuto, já que no enunciado nao é especificado o auth 
 Route::post('/login', [AuthController::class, 'login']);
 
-Route::post('/minio/test-upload', [StorageTestController::class, 'upload']);
-Route::get('/minio/list', [StorageTestController::class, 'list']);
 
 Route::middleware(['auth:sanctum', CheckTokenExpiration::class])->group(function () {
     Route::post('/logout', [AuthController::class, 'logout']);
@@ -28,10 +26,25 @@ Route::middleware(['auth:sanctum', CheckTokenExpiration::class])->group(function
 
 
 Route::middleware(['auth:sanctum', CheckTokenExpiration::class])->group(function () {
+   
+
+    Route::post('fotos-pessoa/upload', [FotoPessoaController::class, 'storeWithUpload']);
+
+    //-- rotas do Min.io (upload / list)
+    Route::post('/minio/test-upload', [StorageTestController::class, 'upload']);
+    Route::get('/minio/list', [StorageTestController::class, 'list']);
 
     // -- rotas especificadas (por unidade / endereco por nome )
     Route::get('servidores-efetivos/unidade/{unid_id}', [ServidorEfetivoController::class, 'porUnidade']);
     Route::get('servidores-efetivos/endereco-funcional', [ServidorEfetivoController::class, 'enderecoFuncionalPorNome']);
+
+    // -- rotas para contempla a adição e edição da tabelas relacionas pivo
+    Route::apiResource('pessoas.enderecos', PessoaEnderecoController::class)->only(['index', 'store', 'update', 'destroy']);
+
+    //-- rotas para contempla a adição e edição da tabelas relacionas pivo
+    Route::apiResource('unidades.enderecos', UnidadeEnderecoController::class)->only(['index', 'store', 'update', 'destroy']);
+
+
 
     // -- rotas de CRUD padrao
     Route::apiResource('servidores-efetivos', ServidorEfetivoController::class);
@@ -40,11 +53,9 @@ Route::middleware(['auth:sanctum', CheckTokenExpiration::class])->group(function
     Route::apiResource('lotacoes', LotacaoController::class);
     Route::apiResource('pessoas', PessoaController::class);
     Route::apiResource('fotos-pessoa', FotoPessoaController::class);
+    Route::apiResource('cidades', CidadeController::class);
+    Route::apiResource('enderecos', EnderecoController::class);
 
-    // apenas com rota de get pq ja tem dados populados por (seeds), 
-    // como no enunciado não pede o CRUD completo dessas, deixei assim, no ponto para uma possível escalada
-    Route::get('cidades', [CidadeController::class, 'index']);
-    Route::get('enderecos', [EnderecoController::class, 'index']);
 
 
 });

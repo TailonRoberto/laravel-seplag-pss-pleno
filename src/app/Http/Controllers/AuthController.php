@@ -10,6 +10,9 @@ use Carbon\Carbon;
 
 class AuthController extends Controller
 {
+    //-- 5 minutos esta como um padrao secundário, para facilicar os testes pode ser usado o TOKEN_EXPIREIN
+   
+
     public function login(Request $request)
     {
         $data = $request->validate([
@@ -23,13 +26,14 @@ class AuthController extends Controller
             return response()->json(['message' => 'Credenciais inválidas'], 401);
         }
 
-        // Token com expiração de 5 minutos
-        $token = $user->createToken('auth_token', [], now()->addMinutes(5));
+        // -- Token com expiração de 5 minutos
+        $expireInMinutes = (int) env('TOKEN_EXPIREIN', 5);
+        $token = $user->createToken('auth_token', [], now()->addMinutes($expireInMinutes));
 
         return response()->json([
             'access_token' => $token->plainTextToken,
             'token_type' => 'Bearer',
-            'expires_in' => 300 // segundos
+            'expires_in' => ($expireInMinutes  * 60)
         ]);
     }
 
@@ -41,12 +45,13 @@ class AuthController extends Controller
         $user->tokens()->delete();
 
         // Gera novo token com nova expiração de 5 minutos
-        $token = $user->createToken('auth_token', [], now()->addMinutes(5));
+        $expireInMinutes = (int) env('TOKEN_EXPIREIN', 5);
+        $token = $user->createToken('auth_token', [], now()->addMinutes($expireInMinutes));
 
         return response()->json([
             'access_token' => $token->plainTextToken,
             'token_type' => 'Bearer',
-            'expires_in' => 300
+            'expires_in' => ($expireInMinutes  * 60)
         ]);
     }
 

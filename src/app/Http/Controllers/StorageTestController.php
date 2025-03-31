@@ -5,50 +5,25 @@ namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Storage;
 use Illuminate\Support\Str;
+use App\Services\MinioService;
 
 class StorageTestController extends Controller
 {
-    public function upload(Request $request)
+    public function upload(Request $request, MinioService $minio)
     {
-        if (!$request->hasFile('files.*')) {
+        if (!$request->hasFile('files')) {
             return response()->json(['message' => 'Nenhum arquivo enviado.'], 400);
         }
 
-        $arquivos = $request->file('files');
-        $resultados = [];
+        $uploaded = [];
 
-        foreach ($arquivos as $file) {
-            $filename = Str::uuid() . '.' . $file->getClientOriginalExtension();
-
-            Storage::disk('minio')->put(
-                $filename,
-                file_get_contents($file),
-                [
-                    'visibility' => 'private',
-                    'ContentType' => $file->getMimeType(),
-                    'ContentDisposition' => 'inline'
-                ]
-            );
-
-            $url = Storage::disk('minio')->temporaryUrl(
-                $filename,
-                now()->addMinutes(5),
-                [
-                    'ResponseContentType' => $file->getMimeType()
-                ]
-            );
-
-            // $url = str_replace('http://minio:9000', 'http://localhost:9000', $url);
-
-            $resultados[] = [
-                'filename' => $filename,
-                'url' => $url
-            ];
+        foreach ($request->file('files') as $file) {
+            $uploaded[] = $minio->uploadAndGenerateSignedUrl($file);
         }
 
         return response()->json([
             'message' => 'Arquivos enviados com sucesso!',
-            'arquivos' => $resultados
+            'arquivos' => $uploaded,
         ]);
     }
 

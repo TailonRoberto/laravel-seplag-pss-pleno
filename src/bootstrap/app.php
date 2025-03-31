@@ -19,6 +19,7 @@ return Application::configure(basePath: dirname(__DIR__))
             'check.token.expiration' => CheckTokenExpiration::class,
             'auth' => Authenticate::class,
         ]);
+        
     })
     ->withExceptions(function (Exceptions $exceptions) {
         //

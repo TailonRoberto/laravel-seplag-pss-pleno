@@ -14,6 +14,6 @@ class Cidade extends Model
 
     public function enderecos()
     {
-        return $this->hasMany(Endereco::class, 'cid_id', 'cid_id');
+        return $this->hasMany(Endereco::class, 'cid_id');
     }
 }

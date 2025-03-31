@@ -9,7 +9,8 @@ class Authenticate extends Middleware
 {
     protected function redirectTo(Request $request): ?string
     {
-        return null; // Impede redirecionamento
+       
+        return null;
     }
 
     protected function unauthenticated($request, array $guards)

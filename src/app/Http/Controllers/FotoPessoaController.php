@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Models\FotoPessoa;
 use Illuminate\Http\Request;
+use App\Services\MinioService;
 
 class FotoPessoaController extends Controller
 {
@@ -50,4 +51,29 @@ class FotoPessoaController extends Controller
 
         return response()->json(['message' => 'Foto deletada com sucesso']);
     }
+
+    public function storeWithUpload(Request $request, MinioService $minio)
+    {
+        $data = $request->validate([
+            'pes_id' => 'required|exists:pessoa,pes_id',
+            'foto' => 'required|file|mimes:jpeg,png,jpg|max:2048',
+        ]);
+
+        //-- Upload e geração do nome único
+        $uploadResult = $minio->uploadAndGenerateSignedUrl($request->file('foto'));
+
+        // Salvar no banco
+        $foto = FotoPessoa::create([
+            'pes_id' => $data['pes_id'],
+            'fp_data' => now(),
+            'fp_bucket' => env('MINIO_BUCKET'),
+            'fp_hash' => $uploadResult['filename'],
+        ]);
+
+        return response()->json([
+            'message' => 'Foto enviada com sucesso!',
+            'foto' => $foto,
+            'url' => $uploadResult['url'],
+        ]);
+    }   
 }
