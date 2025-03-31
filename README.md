@@ -42,6 +42,7 @@ Executando:
    
     1º  Clone o Repositório 
     2º  Execute o Comando: docker-compose up --build
+    3º  Execute o Comando: docker-compose exec app composer install
     3º  Execute o Comando: docker-compose exec app php artisan key:generate
     4º  Execute o comando: docker-compose exec app php artisan migrate:fresh --seed
 

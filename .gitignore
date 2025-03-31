@@ -3,9 +3,6 @@
 /node_modules
 /public/storage
 /storage/*.key
-.env
-.env.*.php
-.env.*.backup
 Homestead.json
 Homestead.yaml
 npm-debug.log
