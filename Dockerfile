@@ -21,12 +21,13 @@ COPY --from=composer:latest /usr/bin/composer /usr/bin/composer
 # Laravel direto em /var/www
 WORKDIR /var/www
 
-COPY ./src /var/www
+# Copia o entrypoint customizado
+COPY ./docker-entrypoint.sh /usr/local/bin/docker-entrypoint.sh
+RUN chmod +x /usr/local/bin/docker-entrypoint.sh
 
-RUN composer install || echo "composer.json não encontrado, pulando install"
-RUN [ -d storage ] && chown -R www-data:www-data storage bootstrap/cache || echo "Pasta storage não encontrada"
-RUN [ -d storage ] && chmod -R 775 storage bootstrap/cache || echo "chmod storage pulado"
+COPY ./src /var/www
 
 EXPOSE 8000
 
+ENTRYPOINT ["docker-entrypoint.sh"]
 CMD php artisan serve --host=0.0.0.0 --port=8000
