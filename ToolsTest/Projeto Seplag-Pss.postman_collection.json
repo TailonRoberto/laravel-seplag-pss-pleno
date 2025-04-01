@@ -1,10 +1,11 @@
 {
 	"info": {
-		"_postman_id": "3a697e93-4973-465e-8d40-1a47db4efb48",
+		"_postman_id": "3ef50f61-1d58-4aca-b52f-8a7134bbd283",
 		"name": "Projeto Seplag-Pss",
 		"description": "Esse é o arquivo de suporte para todos os teste unitários que podem ser feito na aplicação solicitada.",
 		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
-		"_exporter_id": "21783568"
+		"_exporter_id": "43632453",
+		"_collection_link": "https://anapaula-949888.postman.co/workspace/Ana-Paula-'s-Workspace~fab40a4a-1a11-48e6-8858-2ad7b923ed8a/collection/43632453-3ef50f61-1d58-4aca-b52f-8a7134bbd283?action=share&source=collection_link&creator=43632453"
 	},
 	"item": [
 		{
@@ -626,7 +627,10 @@
 					"name": "unidade-endereco",
 					"request": {
 						"method": "GET",
-						"header": []
+						"header": [],
+						"url": {
+							"raw": ""
+						}
 					},
 					"response": []
 				},
@@ -1091,8 +1095,18 @@
 			"request": {
 				"method": "POST",
 				"header": [],
+				"body": {
+					"mode": "formdata",
+					"formdata": [
+						{
+							"key": "files[]",
+							"type": "file",
+							"src": "postman-cloud:///1f00e8da-09c4-49a0-a9bc-a8e08d40a80e"
+						}
+					]
+				},
 				"url": {
-					"raw": "http://localhost:8000/api/minio/test-upload",
+					"raw": "http://localhost:8000/api/minio/upload",
 					"protocol": "http",
 					"host": [
 						"localhost"
@@ -1101,7 +1115,7 @@
 					"path": [
 						"api",
 						"minio",
-						"test-upload"
+						"upload"
 					]
 				}
 			},
@@ -1189,7 +1203,10 @@
 			"name": "pessoa-endereco",
 			"request": {
 				"method": "GET",
-				"header": []
+				"header": [],
+				"url": {
+					"raw": ""
+				}
 			},
 			"response": []
 		},
@@ -1281,7 +1298,10 @@
 			"name": "test-route-false",
 			"request": {
 				"method": "GET",
-				"header": []
+				"header": [],
+				"url": {
+					"raw": ""
+				}
 			},
 			"response": []
 		}
