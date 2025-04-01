@@ -1,11 +1,10 @@
 {
 	"info": {
-		"_postman_id": "3ef50f61-1d58-4aca-b52f-8a7134bbd283",
+		"_postman_id": "3a697e93-4973-465e-8d40-1a47db4efb48",
 		"name": "Projeto Seplag-Pss",
 		"description": "Esse é o arquivo de suporte para todos os teste unitários que podem ser feito na aplicação solicitada.",
 		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
-		"_exporter_id": "43632453",
-		"_collection_link": "https://anapaula-949888.postman.co/workspace/Ana-Paula-'s-Workspace~fab40a4a-1a11-48e6-8858-2ad7b923ed8a/collection/43632453-3ef50f61-1d58-4aca-b52f-8a7134bbd283?action=share&source=collection_link&creator=43632453"
+		"_exporter_id": "21783568"
 	},
 	"item": [
 		{
@@ -68,7 +67,7 @@
 								],
 								"body": {
 									"mode": "raw",
-									"raw": "{\n  \n}",
+									"raw": "{\n  \"pes_id\": 2,\n  \"se_matricula\": \"2025EF00po\"\n}",
 									"options": {
 										"raw": {
 											"language": "json"
@@ -103,7 +102,7 @@
 								],
 								"body": {
 									"mode": "raw",
-									"raw": "{\n  \n}",
+									"raw": "{\n    \"se_matricula\": \"202309999\"\n}",
 									"options": {
 										"raw": {
 											"language": "json"
@@ -132,7 +131,7 @@
 								"method": "DELETE",
 								"header": [],
 								"url": {
-									"raw": "http://localhost:8000/api/servidores-efetivos/1",
+									"raw": "http://localhost:8000/api/servidores-efetivos/2",
 									"protocol": "http",
 									"host": [
 										"localhost"
@@ -141,7 +140,7 @@
 									"path": [
 										"api",
 										"servidores-efetivos",
-										"1"
+										"2"
 									]
 								}
 							},
@@ -178,7 +177,7 @@
 								"method": "GET",
 								"header": [],
 								"url": {
-									"raw": "http://localhost:8000/api/servidores-temporarios/1",
+									"raw": "http://localhost:8000/api/servidores-temporarios/2",
 									"protocol": "http",
 									"host": [
 										"localhost"
@@ -187,7 +186,7 @@
 									"path": [
 										"api",
 										"servidores-temporarios",
-										"1"
+										"2"
 									]
 								}
 							},
@@ -206,7 +205,7 @@
 								],
 								"body": {
 									"mode": "raw",
-									"raw": "{\n  \n}",
+									"raw": "{\n  \"pes_id\": 1,\n  \"st_data_admissao\": \"2024-01-01\",\n  \"st_data_demissao\": \"2024-12-31\"\n}",
 									"options": {
 										"raw": {
 											"language": "json"
@@ -241,7 +240,7 @@
 								],
 								"body": {
 									"mode": "raw",
-									"raw": "{\n  \n}",
+									"raw": "{\n  \"st_data_admissao\": \"2025-01-01\"\n}\n",
 									"options": {
 										"raw": {
 											"language": "json"
@@ -344,7 +343,7 @@
 								],
 								"body": {
 									"mode": "raw",
-									"raw": "{\n  \n}",
+									"raw": "{\n    \"unid_nome\": \"Secretaria de Desenvolvimento Laravel\",\n    \"unid_sigla\": \"SDL\"\n}",
 									"options": {
 										"raw": {
 											"language": "json"
@@ -379,7 +378,7 @@
 								],
 								"body": {
 									"mode": "raw",
-									"raw": "{\n  \n}",
+									"raw": "{\n   \"unid_nome\": \"Secretaria de Desenvolvimento Laravel AlterTeste\",\n   \"unid_sigla\": \"SDL\"\n}",
 									"options": {
 										"raw": {
 											"language": "json"
@@ -387,7 +386,7 @@
 									}
 								},
 								"url": {
-									"raw": "http://localhost:8000/api/unidades/1",
+									"raw": "http://localhost:8000/api/unidades/12",
 									"protocol": "http",
 									"host": [
 										"localhost"
@@ -396,7 +395,7 @@
 									"path": [
 										"api",
 										"unidades",
-										"1"
+										"12"
 									]
 								}
 							},
@@ -408,7 +407,7 @@
 								"method": "DELETE",
 								"header": [],
 								"url": {
-									"raw": "http://localhost:8000/api/unidades/1",
+									"raw": "http://localhost:8000/api/unidades/12",
 									"protocol": "http",
 									"host": [
 										"localhost"
@@ -417,7 +416,7 @@
 									"path": [
 										"api",
 										"unidades",
-										"1"
+										"12"
 									]
 								}
 							},
@@ -482,7 +481,7 @@
 								],
 								"body": {
 									"mode": "raw",
-									"raw": "{\n  \"pes_id\": 1,\n  \"unid_id\": 2,\n  \"lot_data_lotacao\": \"2024-01-15\",\n  \"lot_data_remocao\": null,\n  \"lot_portaia\": \"Portaria nº 123/2024\"\n}\n",
+									"raw": "{\n  \"pes_id\": 1,\n  \"unid_id\": 1,\n  \"lot_data_lotacao\": \"2024-01-15\",\n  \"lot_data_remocao\": null,\n  \"lot_portaia\": \"Portaria nº 123/2024\"\n}\n",
 									"options": {
 										"raw": {
 											"language": "json"
@@ -517,7 +516,7 @@
 								],
 								"body": {
 									"mode": "raw",
-									"raw": "{\n    \"lot_id\": 1,\n    \"pes_id\": 1,\n    \"unid_id\": 1,\n    \"lot_data_lotacao\": \"2023-01-15\",\n    \"lot_data_remocao\": null,\n    \"lot_portaia\": \"PORTARIA-9999\"\n}",
+									"raw": "{    \n    \"unid_id\": 1,\n    \"lot_data_lotacao\": \"2000-01-01\",\n    \"lot_data_remocao\": null,\n    \"lot_portaia\": \"PORTARIA-9999\"\n}",
 									"options": {
 										"raw": {
 											"language": "json"
@@ -546,7 +545,7 @@
 								"method": "DELETE",
 								"header": [],
 								"url": {
-									"raw": "http://localhost:8000/api/lotacoes/1",
+									"raw": "http://localhost:8000/api/lotacoes/99",
 									"protocol": "http",
 									"host": [
 										"localhost"
@@ -555,7 +554,7 @@
 									"path": [
 										"api",
 										"lotacoes",
-										"1"
+										"99"
 									]
 								}
 							},
@@ -627,10 +626,7 @@
 					"name": "unidade-endereco",
 					"request": {
 						"method": "GET",
-						"header": [],
-						"url": {
-							"raw": ""
-						}
+						"header": []
 					},
 					"response": []
 				},
@@ -1101,7 +1097,10 @@
 						{
 							"key": "files[]",
 							"type": "file",
-							"src": "postman-cloud:///1f00e8da-09c4-49a0-a9bc-a8e08d40a80e"
+							"src": [
+								"postman-cloud:///1f00cee5-aa79-4fd0-8bf8-6353bf706c69",
+								"postman-cloud:///1f00cfef-ea61-4890-83ad-0c58ffdba103"
+							]
 						}
 					]
 				},
@@ -1133,16 +1132,22 @@
 					}
 				],
 				"body": {
-					"mode": "raw",
-					"raw": "{\n  \n}",
-					"options": {
-						"raw": {
-							"language": "json"
+					"mode": "formdata",
+					"formdata": [
+						{
+							"key": "pes_id",
+							"value": "2",
+							"type": "text"
+						},
+						{
+							"key": "foto",
+							"type": "file",
+							"src": "postman-cloud:///1f00cee5-aa79-4fd0-8bf8-6353bf706c69"
 						}
-					}
+					]
 				},
 				"url": {
-					"raw": "http://localhost:8000/api/fotos-pessoa",
+					"raw": "http://localhost:8000/api/fotos-pessoa/upload",
 					"protocol": "http",
 					"host": [
 						"localhost"
@@ -1150,7 +1155,8 @@
 					"port": "8000",
 					"path": [
 						"api",
-						"fotos-pessoa"
+						"fotos-pessoa",
+						"upload"
 					]
 				}
 			},
@@ -1184,7 +1190,7 @@
 				"method": "GET",
 				"header": [],
 				"url": {
-					"raw": "http://localhost:8000/api/servidores-efetivos/endereco-funcional",
+					"raw": "http://localhost:8000/api/servidores-efetivos/endereco-funcional?nome=Jo",
 					"protocol": "http",
 					"host": [
 						"localhost"
@@ -1194,6 +1200,12 @@
 						"api",
 						"servidores-efetivos",
 						"endereco-funcional"
+					],
+					"query": [
+						{
+							"key": "nome",
+							"value": "Jo"
+						}
 					]
 				}
 			},
@@ -1205,7 +1217,18 @@
 				"method": "GET",
 				"header": [],
 				"url": {
-					"raw": ""
+					"raw": "http://localhost:8000/api/pessoas/1/enderecos",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8000",
+					"path": [
+						"api",
+						"pessoas",
+						"1",
+						"enderecos"
+					]
 				}
 			},
 			"response": []
@@ -1216,7 +1239,7 @@
 				"method": "DELETE",
 				"header": [],
 				"url": {
-					"raw": "http://localhost:8000/api/servidores-efetivos/1",
+					"raw": "http://localhost:8000/api/pessoas/1/enderecos/2",
 					"protocol": "http",
 					"host": [
 						"localhost"
@@ -1224,8 +1247,10 @@
 					"port": "8000",
 					"path": [
 						"api",
-						"servidores-efetivos",
-						"1"
+						"pessoas",
+						"1",
+						"enderecos",
+						"2"
 					]
 				}
 			},
@@ -1258,7 +1283,7 @@
 				"method": "GET",
 				"header": [],
 				"url": {
-					"raw": "http://localhost:8000/api/fotos-pessoa/1",
+					"raw": "http://localhost:8000/api/pessoas/2/fotos",
 					"protocol": "http",
 					"host": [
 						"localhost"
@@ -1266,8 +1291,9 @@
 					"port": "8000",
 					"path": [
 						"api",
-						"fotos-pessoa",
-						"1"
+						"pessoas",
+						"2",
+						"fotos"
 					]
 				}
 			},
@@ -1279,7 +1305,7 @@
 				"method": "DELETE",
 				"header": [],
 				"url": {
-					"raw": "http://localhost:8000/api/fotos-pessoa/1",
+					"raw": "http://localhost:8000/api/fotos-pessoa/8",
 					"protocol": "http",
 					"host": [
 						"localhost"
@@ -1288,7 +1314,7 @@
 					"path": [
 						"api",
 						"fotos-pessoa",
-						"1"
+						"8"
 					]
 				}
 			},
@@ -1300,7 +1326,16 @@
 				"method": "GET",
 				"header": [],
 				"url": {
-					"raw": ""
+					"raw": "http://localhost:8000/api/nao-existe-nada",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8000",
+					"path": [
+						"api",
+						"nao-existe-nada"
+					]
 				}
 			},
 			"response": []
