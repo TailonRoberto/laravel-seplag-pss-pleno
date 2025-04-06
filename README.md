@@ -39,12 +39,19 @@ Requesitos para execução:
 - Docker Compose
 
 Executando: 
-   
-    1º  Clone o Repositório 
-    2º  Execute o Comando: docker-compose up --build
-    3º  Execute o Comando: docker-compose exec app composer install
-    3º  Execute o Comando: docker-compose exec app php artisan key:generate
-    4º  Execute o comando: docker-compose exec app php artisan migrate:fresh --seed
+
+    //-- Estou disponibilizando o video abaixo para explicar de forma muito simples como instalar, executar e testar o sistema.
+    -->> Link o Video
+
+    Mas caso você prefira ver o passo a passo de forma escrita o mesmo segue abaixo:   
+
+
+    //-- Passo a Passo para Instalar, Executar e Testar.
+
+    1º  Clone o Repositório     
+    2º  Entre na pasta "laravel-seplag-pss" e execute o Comando: docker-compose build
+    3º  Execute o Comando: docker-compose up --build
+    4º  Aguarde tudo ser configurado, até aparecer essa mensagem "INFO  Server running on [http://0.0.0.0:8000]."  
 
     5º Acesse o sistema:
 
@@ -52,18 +59,24 @@ Executando:
 
         Min.IO: http://localhost:9000 (usuário: minioadmin, senha: minioadmin)
 
-        Console Min.IO: http://localhost:9001
+        Console Min.IO: http://localhost:9001 (usuário: minioadmin, senha: minioadmin)
 
-    6º Carregue o arquivo (Projeto Seplag-Pss.postman_collection.json) importando-o para o postman
-      - ao importar o projeto você simplementente pode ir testando as todas pois os dados necessarios ja estaram preenchidos
 
-    7º Caso não for utilizar o arquivo "Projeto Seplag-Pss.postman_collection.json" então vc terá que fazer o login para se autenticar usando essas credenciais 
+    6º (Opcional) Carregue o arquivo (Projeto Seplag-Pss.postman_collection.json) importando-o para o postman.
+      - ao importar o projeto você simplementente pode ir testando as todas funcionalides requeridas, pois os dados necessários já estarão preenchidos e prontos para teste, execute a rota de login, set o token na variavel "access_token" e pronto, pode seguir testando todas as rotas que foram criadas, somente apertando no "Send".
+
+    7º (observação) Caso não for utilizar o arquivo "Projeto Seplag-Pss.postman_collection.json" então vc terá que fazer o login para se autenticar usando essas credenciais 
       {
-             "email": "admin@example.com",
-                "password": "password"
+          "email": "admin@example.com",
+          "password": "password"
       }
 
-    8º Caso queria testar o Cors temos um comentário no "src\config\cors.php" e o arquivo (cors-test.html) que irá ajudar a fazer um teste pratico e rápido. 
+    8º Caso queria testar o Cors temos um comentário no arquivo "src\config\cors.php" e o arquivo (cors-test.html) que irá ajudar a fazer um teste pratico e rápido. 
+    
+
+    9º Em caso de dúvidas estou a disposição.
+
+
 
 
 
