@@ -1,76 +1,118 @@
 # laravel-seplag-pss
-PSS 02/2025SEPLAG (Analista de TI - Sênior)
 
-- **Nome:** Tatilon Roberto Lino de Souza
-- **Cargo:** Desenvolvedor PHP 
+**PSS 02/2025 - SEPLAG (Analista de TI - Sênior)**
+
+- **Nome:** Tatilon Roberto Lino de Souza  
+- **Cargo:** Desenvolvedor PHP  
 - **Protocolo de Inscrição:** [Número do Protocolo]
 
+---
 
-//-- O sistema contempla todas as funcionalidades exigidas no Edital, bem como os requisitos essenciais para garantir seu pleno funcionamento, segurança, confiabilidade e escalabilidade.
-//-- tambem estám disponiveis dois arquivos dentro da pasta ToolsTest (Projeto Seplag-Pss.postman_collection.json / cors-test.html)
-//-- esses arquivos foram criados com o intuito de facilitar/adiantar os testes.
+O sistema contempla todas as funcionalidades exigidas no edital, bem como os requisitos essenciais para garantir seu pleno funcionamento, segurança, confiabilidade e escalabilidade.
 
-lista de funcionalidade Implementadas: 
+Também estão disponíveis dois arquivos dentro da pasta `ToolsTest`:
 
-- Autenticação com expiração e renovação de token (5 min)
+- `Projeto Seplag-Pss.postman_collection.json`
+- `cors-test.html`
+
+Esses arquivos foram criados com o intuito de **facilitar e agilizar os testes**.
+
+---
+
+## Funcionalidades implementadas
+
+- Autenticação com expiração e renovação de token (5 minutos)
 - Restrições de CORS conforme especificado
 - CRUD completo para:
   - Servidor Efetivo
   - Servidor Temporário
   - Unidade
   - Lotação
-- Consulta por `unid_id` com nome, idade, unidade e fotografia
+- Consulta por `unid_id`, retornando nome, idade, unidade e fotografia
 - Consulta de endereço funcional por parte do nome do servidor
 - Upload de imagens para Min.IO
 - Recuperação de imagens via links temporários com expiração de 5 minutos
 - Paginação em todas as listagens
 - Orquestração completa com Docker Compose
 
-Tecnologias:
+---
 
-- PHP 8.2 (Laravel 12)
-- PostgreSQL (última versão)
-- Min.IO (S3-compatible object storage)
-- Docker / Docker Compose
+## Tecnologias utilizadas
 
-Requesitos para execução: 
+- **PHP 8.2 (Laravel 12)**
+- **PostgreSQL (última versão)**
+- **Min.IO** (armazenamento compatível com S3)
+- **Docker / Docker Compose**
+
+---
+
+## Requisitos para execução
 
 - Docker
 - Docker Compose
 
-Executando: 
-   
-    1º  Clone o Repositório 
-    2º  Execute o Comando: docker-compose up --build
-    3º  Execute o Comando: docker-compose exec app composer install
-    3º  Execute o Comando: docker-compose exec app php artisan key:generate
-    4º  Execute o comando: docker-compose exec app php artisan migrate:fresh --seed
+---
 
-    5º Acesse o sistema:
+## Executando o projeto
 
-        API Laravel: http://localhost:8000
+Estou disponibilizando um vídeo para explicar, de forma simples, como instalar, executar e testar o sistema:
 
-        Min.IO: http://localhost:9000 (usuário: minioadmin, senha: minioadmin)
+🔗 [https://www.youtube.com/watch?v=guJKyD5_prc](https://www.youtube.com/watch?v=guJKyD5_prc)
 
-        Console Min.IO: http://localhost:9001
+---
 
-    6º Carregue o arquivo (Projeto Seplag-Pss.postman_collection.json) importando-o para o postman
-      - ao importar o projeto você simplementente pode ir testando as todas pois os dados necessarios ja estaram preenchidos
+### Passo a passo (modo texto)
 
-    7º Caso não for utilizar o arquivo "Projeto Seplag-Pss.postman_collection.json" então vc terá que fazer o login para se autenticar usando essas credenciais 
-      {
-             "email": "admin@example.com",
-                "password": "password"
-      }
+1. Clone o repositório:
+    ```bash
+    git clone <url-do-repositorio>
+    ```
 
-    8º Caso queria testar o Cors temos um comentário no "src\config\cors.php" e o arquivo (cors-test.html) que irá ajudar a fazer um teste pratico e rápido. 
+2. Acesse a pasta do projeto:
+    ```bash
+    cd laravel-seplag-pss
+    ```
 
+3. Execute o build do Docker:
+    ```bash
+    docker-compose build
+    ```
 
+4. Inicie os containers:
+    ```bash
+    docker-compose up --build
+    ```
 
+5. Aguarde até aparecer a mensagem:
+    ```
+    INFO  Server running on [http://0.0.0.0:8000].
+    ```
 
-       
+---
 
+## Acessos
 
+- API Laravel: [http://localhost:8000](http://localhost:8000)  
+- Min.IO: [http://localhost:9000](http://localhost:9000)  
+- Console Min.IO: [http://localhost:9001](http://localhost:9001)  
+  - Usuário: `minioadmin`  
+  - Senha: `minioadmin`
 
+---
 
+## Testes com Postman
 
+6. (Opcional) Importe o arquivo `Projeto Seplag-Pss.postman_collection.json` no Postman.
+
+- Ao importar, todas as rotas estarão pré-configuradas.
+- Execute a rota de login.
+- Copie o token e ele será automaticamente salvo na variável `access_token`.
+- A partir daí, é só testar todas as rotas clicando em **"Send"**.
+
+7. (Sem Postman) Se preferir testar manualmente, use as seguintes credenciais para login:
+
+```json
+{
+  "email": "admin@example.com",
+  "password": "password"
+}
