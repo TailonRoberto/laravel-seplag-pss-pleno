@@ -1,6 +1,6 @@
 # laravel-seplag-pss
 
-**PSS 02/2025 - SEPLAG (Analista de TI - Sênior)**
+**PSS 02/2025 - SEPLAG (Analista de TI - Pleno)**
 
 - **Nome:** Tatilon Roberto Lino de Souza  
 - **Cargo:** Desenvolvedor PHP  
