@@ -3,8 +3,8 @@
 **PSS 02/2025 - SEPLAG (Analista de TI - Pleno)**
 
 - **Nome:** Tatilon Roberto Lino de Souza  
-- **Cargo:** Desenvolvedor PHP  
-- **Protocolo de Inscrição:** [Número do Protocolo]
+- **Cargo:** Desenvolvedor PHP - PLENO 
+- **Protocolo de Inscrição:** [9289]
 
 ---
 
