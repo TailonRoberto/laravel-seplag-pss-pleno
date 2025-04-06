@@ -57,7 +57,7 @@ Esses arquivos foram criados com o intuito de **facilitar e agilizar os testes**
 
 Estou disponibilizando um vídeo para explicar, de forma simples, como instalar, executar e testar o sistema:
 
-🔗 [https://www.youtube.com/watch?v=guJKyD5_prc](https://www.youtube.com/watch?v=guJKyD5_prc)
+🔗 [https://www.youtube.com/watch?v=MVK7dMR22k4](https://www.youtube.com/watch?v=MVK7dMR22k4)
 
 ---
 
